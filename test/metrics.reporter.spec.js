@@ -176,6 +176,47 @@ describe("Test AppSignalMetricReporter", () => {
 			expect(reporter.meter.setGauge).toBeCalledTimes(1);
 			expect(reporter.meter.setGauge).toBeCalledWith("custom.histogram.rate", 1.25, { b : "bob" });
 		});
+
+		it("should call meter.addDistributionValue for histogram metric with item.lastValue", async () => {
+			reporter.meter.setGauge.mockClear();
+			reporter.meter.addDistributionValue.mockClear();
+
+			const metric = {
+				name: "custom.histogram",
+				type: "histogram",
+				values: [
+					{ labels: { a: 5 }, lastValue: 123 }
+				]
+			};
+
+			reporter.processMetric(metric);
+
+			expect(reporter.meter.addDistributionValue).toBeCalledTimes(1);
+			expect(reporter.meter.addDistributionValue).toBeCalledWith("custom.histogram", 123, { a : "5" });
+		});
+
+		it("should call nothing if metric.name is not matched", async () => {
+			reporter.meter.setGauge.mockClear();
+			reporter.meter.addDistributionValue.mockClear();
+
+			const metric = {
+				name: "custom.histogram",
+				type: "histogram",
+				values: [
+					{ labels: { a: 5 }, lastValue: 123 }
+				]
+			};
+
+			reporter.matchMetricName = jest.fn(() => false);
+
+			reporter.processMetric(metric);
+
+			expect(reporter.meter.setGauge).toBeCalledTimes(0);
+			expect(reporter.meter.addDistributionValue).toBeCalledTimes(0);
+
+			expect(reporter.matchMetricName).toBeCalledTimes(1);
+			expect(reporter.matchMetricName).toBeCalledWith("custom.histogram");
+		});
 	});
 
 	describe("Test convertLabels", () => {
@@ -222,6 +263,31 @@ describe("Test AppSignalMetricReporter", () => {
 			const res = reporter.convertLabels({});
 
 			expect(res).toEqual(null);
+		});
+
+		it("should return null if no labels", async () => {
+			const reporter = new AppSignalMetricReporter({ defaultLabels: null });
+			reporter.init(registry);
+
+			const res = reporter.convertLabels();
+
+			expect(res).toEqual(null);
+		});
+	});
+
+	describe("Test metricChanged", () => {
+		const broker = new ServiceBroker({ logger: false });
+		const registry = broker.metrics;
+		const reporter = new AppSignalMetricReporter();
+		reporter.init(registry);
+
+		it("should call processMetric", async () => {
+			reporter.processMetric = jest.fn();
+			const metric = { a: 5 };
+			reporter.metricChanged(metric, 123);
+
+			expect(reporter.processMetric).toBeCalledTimes(1);
+			expect(reporter.processMetric).toBeCalledWith(metric, 123);
 		});
 	});
 });
