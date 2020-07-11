@@ -1,0 +1,128 @@
+{
+	"title": "Moleculer Dashboard",
+	"description": "",
+	"visuals": [
+	  {
+		"title": "CPU usage",
+		"line_label": "%name%",
+		"display": "AREA",
+		"format": "percent",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "os.cpu.utilization",
+			"fields": [
+			  {
+				"field": "GAUGE"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  },
+	  {
+		"title": "RSS Memory",
+		"line_label": "%name%",
+		"display": "AREA",
+		"format": "size",
+		"format_input": "byte",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "process.memory.rss",
+			"fields": [
+			  {
+				"field": "GAUGE"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  },
+	  {
+		"title": "Requests/min",
+		"line_label": "%name%",
+		"display": "AREA",
+		"format": "throughput",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "moleculer.request.total.rate",
+			"fields": [
+			  {
+				"field": "GAUGE"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  },
+	  {
+		"title": "Response time",
+		"line_label": "%name% %field%",
+		"display": "AREA",
+		"format": "duration",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "moleculer.request.time",
+			"fields": [
+			  {
+				"field": "P90"
+			  },
+			  {
+				"field": "MEAN"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  },
+	  {
+		"title": "Event/min",
+		"description": "",
+		"line_label": "%name%",
+		"display": "AREA",
+		"format": "throughput",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "moleculer.event.received.total.rate",
+			"fields": [
+			  {
+				"field": "GAUGE"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  },
+	  {
+		"title": "Event process time",
+		"line_label": "%name% %field%",
+		"display": "AREA",
+		"format": "duration",
+		"draw_null_as_zero": true,
+		"metrics": [
+		  {
+			"name": "moleculer.event.received.time",
+			"fields": [
+			  {
+				"field": "MEAN"
+			  },
+			  {
+				"field": "P90"
+			  }
+			],
+			"tags": []
+		  }
+		],
+		"type": "timeseries"
+	  }
+	]
+  }

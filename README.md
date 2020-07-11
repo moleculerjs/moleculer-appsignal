@@ -33,6 +33,13 @@ module.exports = {
 };
 ```
 
+#### Dashboards
+**Main common dashboard**
+
+[Download the dashboard]("dashboards/Moleculer Main.json")
+
+
+
 ## Test
 ```
 $ npm test
