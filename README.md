@@ -11,7 +11,7 @@ $ npm i moleculer-appsignal
 
 ## Usage
 
-You should set your AppSignal API key. Use the `export APPSIGNAL_PUSH_API_KEY="<YOUR API KEY>"` environment variable or set the `ȧpiKey` in reporter options under `appSignal` property.
+You should set your AppSignal API key. Use the `export APPSIGNAL_PUSH_API_KEY="<YOUR API KEY>"` environment variable or set the `apiKey` in reporter options under `appSignal` property.
 
 ### Metrics
 ```js
