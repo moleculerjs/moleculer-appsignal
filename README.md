@@ -1,4 +1,4 @@
-# AppSignal for Moleculer framework
+# [WIP] AppSignal for Moleculer framework
 Moleculer Metrics reporter and Tracing exporter for [AppSignal](https://appsignal.com/).
 
 ## Install
@@ -40,6 +40,8 @@ module.exports = {
 
 ![Dashboard image](https://user-images.githubusercontent.com/306521/87221154-16853600-c36a-11ea-80e3-04c8b7a0e4fe.png)
 
+### Tracing
+WIP
 
 ## Test
 ```
