@@ -63,9 +63,10 @@ class AppSignalReporter extends BaseReporter {
 	 * Process the given metric.
      * 
 	 * @param {BaseMetric} metric
+     * @param {Number} lastValue
 	 * @memberof AppSignalReporter
 	 */
-	processMetric(metric) {
+	processMetric(metric, lastValue) {
 		if (!this.matchMetricName(metric.name)) return;
 
 		metric.values.forEach(item => {
@@ -79,7 +80,7 @@ class AppSignalReporter extends BaseReporter {
 			}
 			case METRIC.TYPE_HISTOGRAM: {
 				if (item.rate != null) {
-					this.meter.addDistributionValue(metric.name, item.rate.lastValue, this.convertLabels(item.labels));
+					this.meter.addDistributionValue(metric.name, lastValue || item.lastValue, this.convertLabels(item.labels));
 					this.meter.setGauge(metric.name + ".rate", item.rate.rate, this.convertLabels(item.labels));
 				}
 				break;
@@ -113,10 +114,11 @@ class AppSignalReporter extends BaseReporter {
 	 * Some metric has been changed.
 	 *
 	 * @param {BaseMetric} metric
+     * @param {Number} value
 	 * @memberof AppSignalReporter
 	 */
-	metricChanged(metric) {
-		this.processMetric(metric);
+	metricChanged(metric, value) {
+		this.processMetric(metric, value);
 	}
 }
 
