@@ -36,8 +36,9 @@ module.exports = {
 #### Dashboards
 **Main common dashboard**
 
-[Download the dashboard]("dashboards/Moleculer Main.json")
+[Download the dashboard](dashboards/Moleculer-Main.json)
 
+![Dashboard image](https://user-images.githubusercontent.com/306521/87221154-16853600-c36a-11ea-80e3-04c8b7a0e4fe.png)
 
 
 ## Test
