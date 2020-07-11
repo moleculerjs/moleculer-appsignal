@@ -17,11 +17,11 @@ const broker = new ServiceBroker({
 		enabled: true,
 		reporter: [
 			new AppSignalReporter({
-				/*appSignal: {
+				appSignal: {
 					debug: true,
 					log: "file",
 					logPath: "./appsignal.log"                    
-				}*/
+				}
 			}),
 			/*{
 				type: "Console",
@@ -66,7 +66,7 @@ broker.start()
 			broker.call("greeter.hello")
 				.then(res => broker.logger.info("OK"))
 				.catch(err => broker.logger.error(err));
-			c--;
+			//c--;
 			if (c <= 0)
 				clearInterval(timer);
 		}, 1000);

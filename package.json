@@ -4,7 +4,7 @@
   "description": "Moleculer Metrics reporter and Tracing exporter for AppSignal",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon examples/index.js",
+    "dev": "nodemon example/index.js",
     "ci": "jest --watch",
     "test": "jest --coverage",
     "lint": "eslint --ext=.js src test",
@@ -15,7 +15,13 @@
     "type": "git",
     "url": "git+https://github.com/moleculerjs/moleculer-appsignal.git"
   },
-  "keywords": ["moleculer", "metrics", "tracing", "apm", "appsignal"],
+  "keywords": [
+    "moleculer",
+    "metrics",
+    "tracing",
+    "apm",
+    "appsignal"
+  ],
   "author": "MoleculerJS",
   "license": "MIT",
   "bugs": {
