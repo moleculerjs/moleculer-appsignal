@@ -1,7 +1,7 @@
 "use strict";
 
 const { ServiceBroker } = require("moleculer");
-const AppSignalReporter = require("../src/metrics.reporter");
+const AppSignalMetricReporter = require("../src/metrics.reporter");
 
 const broker = new ServiceBroker({
 	nodeID: "metrics",
@@ -16,7 +16,7 @@ const broker = new ServiceBroker({
 	metrics: {
 		enabled: true,
 		reporter: [
-			new AppSignalReporter({
+			new AppSignalMetricReporter({
 				appSignal: {
 					debug: true,
 					log: "file",

@@ -16,14 +16,14 @@ You should set your AppSignal API key. Use the `APPSIGNAL_PUSH_API_KEY` environm
 ### Metrics
 ```js
 // moleculer.config.js
-const { AppSignalReporter } = require("moleculer-appsignal");
+const { AppSignalMetricReporter } = require("moleculer-appsignal");
 
 module.exports = {
     nodeID: "demo",
 
     metrics: {
         enabled: true,
-        reporter: new AppSignalReporter({
+        reporter: new AppSignalMetricReporter({
             // Common reporter options. More info: https://moleculer.services/docs/0.14/metrics.html#Metrics-Reporters
             appSignal: {
                 // AppSignal options. More info: https://docs.appsignal.com/nodejs/configuration

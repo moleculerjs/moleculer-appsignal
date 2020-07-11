@@ -2,12 +2,12 @@ const METRIC = require("moleculer").METRIC;
 const BaseReporter = require("moleculer").MetricReporters.Base;
 const _ = require("lodash");
 
-class AppSignalReporter extends BaseReporter {
+class AppSignalMetricReporter extends BaseReporter {
 
 	/**
 	 * Creates an instance of EventReporter.
 	 * @param {Object} opts
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
 	 */
 	constructor(opts) {
 		super(opts);
@@ -26,7 +26,7 @@ class AppSignalReporter extends BaseReporter {
 	 * Initialize reporter.
 	 *
 	 * @param {MetricRegistry} registry
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
 	 */
 	init(registry) {
 		super.init(registry);
@@ -47,7 +47,7 @@ class AppSignalReporter extends BaseReporter {
 
 	/**
 	 * Process all metrics
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
 	 */
 	processAllMetrics() {
 		const list = this.registry.list({
@@ -64,7 +64,7 @@ class AppSignalReporter extends BaseReporter {
      * 
 	 * @param {BaseMetric} metric
      * @param {Number} lastValue
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
 	 */
 	processMetric(metric, lastValue) {
 		if (!this.matchMetricName(metric.name)) return;
@@ -93,7 +93,7 @@ class AppSignalReporter extends BaseReporter {
      * Convert labels. Remove `null` label values.
      * 
      * @param {Object} itemLabels 
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
      */
 	convertLabels(itemLabels) {
 		const labels = Object.assign({}, this.defaultLabels || {}, itemLabels || {});
@@ -115,11 +115,11 @@ class AppSignalReporter extends BaseReporter {
 	 *
 	 * @param {BaseMetric} metric
      * @param {Number} value
-	 * @memberof AppSignalReporter
+	 * @memberof AppSignalMetricReporter
 	 */
 	metricChanged(metric, value) {
 		this.processMetric(metric, value);
 	}
 }
 
-module.exports = AppSignalReporter;
+module.exports = AppSignalMetricReporter;

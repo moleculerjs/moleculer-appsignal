@@ -1,5 +1,5 @@
-const AppSignalReporter = require("./src/metrics.reporter");
+const AppSignalMetricReporter = require("./src/metrics.reporter");
 
 module.exports = {
-	AppSignalReporter
+	AppSignalMetricReporter
 };
