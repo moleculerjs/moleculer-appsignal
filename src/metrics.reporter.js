@@ -16,7 +16,11 @@ class AppSignalMetricReporter extends BaseReporter {
 			appSignal: {
 				active: true,
 				name: "Moleculer project",
-			}
+			},
+			defaultLabels: (registry) => ({
+				namespace: registry.broker.namespace,
+				nodeID: registry.broker.nodeID
+			}),
 		});
 
 		this.appSignal = null;
@@ -30,6 +34,8 @@ class AppSignalMetricReporter extends BaseReporter {
 	 */
 	init(registry) {
 		super.init(registry);
+
+		this.defaultLabels = _.isFunction(this.opts.defaultLabels) ? this.opts.defaultLabels.call(this, registry) : this.opts.defaultLabels;
 
 		try {
 			const { Appsignal } = require("@appsignal/nodejs");
@@ -61,7 +67,7 @@ class AppSignalMetricReporter extends BaseReporter {
 
 	/**
 	 * Process the given metric.
-     * 
+     *
 	 * @param {BaseMetric} metric
      * @param {Number} lastValue
 	 * @memberof AppSignalMetricReporter
@@ -79,10 +85,9 @@ class AppSignalMetricReporter extends BaseReporter {
 				break;
 			}
 			case METRIC.TYPE_HISTOGRAM: {
-				if (item.rate != null) {
-					this.meter.addDistributionValue(metric.name, lastValue || item.lastValue, this.convertLabels(item.labels));
+				this.meter.addDistributionValue(metric.name, lastValue || item.lastValue, this.convertLabels(item.labels));
+				if (item.rate != null)
 					this.meter.setGauge(metric.name + ".rate", item.rate.rate, this.convertLabels(item.labels));
-				}
 				break;
 			}
 			}
@@ -91,8 +96,8 @@ class AppSignalMetricReporter extends BaseReporter {
 
 	/**
      * Convert labels. Remove `null` label values.
-     * 
-     * @param {Object} itemLabels 
+     *
+     * @param {Object} itemLabels
 	 * @memberof AppSignalMetricReporter
      */
 	convertLabels(itemLabels) {
