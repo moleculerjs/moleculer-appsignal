@@ -1,7 +1,7 @@
 "use strict";
 
 const { ServiceBroker } = require("moleculer");
-const AppSignalMetricReporter = require("../src/metrics.reporter");
+const { AppSignalMetricReporter, AppSignalTracingExporter } = require("../");
 
 const broker = new ServiceBroker({
 	nodeID: "metrics",
@@ -32,6 +32,13 @@ const broker = new ServiceBroker({
 					//excludes: ["moleculer.transit.publish.total", "moleculer.transit.receive.total"]
 				}
 			},*/
+		]
+	},
+
+	tracing: {
+		enabled: true,
+		exporter: [
+			new AppSignalTracingExporter()
 		]
 	}
 });
