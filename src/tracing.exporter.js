@@ -44,7 +44,7 @@ class AppSignalTracingExporter extends BaseExporter {
 			const { Appsignal } = require("@appsignal/nodejs");
 			this.appSignal = new Appsignal(this.opts.appSignal);
 			this.tracer = this.appSignal.tracer();
-			
+
 		} catch(err) {
 			/* istanbul ignore next */
 			this.tracer.broker.fatal("The '@appsignal/nodejs' package is missing! Please install it with 'npm install @appsignal/nodejs --save' command!", err, true);
@@ -68,6 +68,9 @@ class AppSignalTracingExporter extends BaseExporter {
 		const asSpan = this.tracer.createSpan({
 			namespace: this.opts.namespace,
 			startTime: span.startTime
+		}, {
+			traceId: span.traceID,
+			spanId: span.parentID
 		});
 
 		asSpan.setName(span.name);
