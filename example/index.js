@@ -1,5 +1,6 @@
 "use strict";
 
+const path = require("path");
 const { ServiceBroker } = require("moleculer");
 const { AppSignalMetricReporter, AppSignalTracingExporter } = require("../");
 
@@ -19,8 +20,7 @@ const broker = new ServiceBroker({
 			new AppSignalMetricReporter({
 				appSignal: {
 					debug: true,
-					log: "file",
-					logPath: "./appsignal.log"                    
+					logPath: path.resolve(__dirname, "../appsignal.log")  
 				}
 			}),
 			/*{
@@ -38,7 +38,12 @@ const broker = new ServiceBroker({
 	tracing: {
 		enabled: true,
 		exporter: [
-			new AppSignalTracingExporter()
+			new AppSignalTracingExporter({
+				appSignal: {
+					debug: true,
+					logPath: path.resolve(__dirname, "../appsignal.log")  
+				}
+			})
 		]
 	}
 });
