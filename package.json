@@ -35,7 +35,7 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@appsignal/nodejs": "^1.0.1",
+    "@appsignal/nodejs": "^1.0.5",
     "coveralls": "^3.1.0",
     "eslint": "^7.11.0",
     "jest": "^26.5.2",
