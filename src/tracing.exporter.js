@@ -65,13 +65,23 @@ class AppSignalTracingExporter extends BaseExporter {
 	spanFinished(span) {
 		const serviceName = span.service ? span.service.fullName : null;
 
-		const asSpan = this.tracer.createSpan({
-			namespace: this.opts.namespace,
-			startTime: span.startTime
-		}, {
-			traceId: span.traceID,
-			spanId: span.parentID
-		});
+		let asSpan;
+
+		if (!span.parentID) {
+			// root span
+			asSpan = this.tracer.createSpan({
+				namespace: this.opts.namespace,
+				startTime: span.startTime
+			});
+		} else {
+			// child span
+			asSpan = this.tracer.createSpan({
+				startTime: span.startTime
+			}, {
+				traceId: span.traceID,
+				spanId: span.parentID
+			});
+		}
 
 		asSpan.setName(span.name);
 		asSpan.setCategory(serviceName);
