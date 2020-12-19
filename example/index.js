@@ -20,7 +20,7 @@ const broker = new ServiceBroker({
 			new AppSignalMetricReporter({
 				appSignal: {
 					debug: true,
-					logPath: path.resolve(__dirname, "../appsignal.log")  
+					logPath: path.resolve(__dirname, "../appsignal.log")
 				}
 			}),
 			/*{
@@ -37,11 +37,12 @@ const broker = new ServiceBroker({
 
 	tracing: {
 		enabled: true,
+		events: true,
 		exporter: [
 			new AppSignalTracingExporter({
 				appSignal: {
 					debug: true,
-					logPath: path.resolve(__dirname, "../appsignal.log")  
+					logPath: path.resolve(__dirname, "../appsignal.log")
 				}
 			})
 		]
